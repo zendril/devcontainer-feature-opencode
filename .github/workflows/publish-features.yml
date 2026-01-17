@@ -1,0 +1,56 @@
+name: Publish devcontainer features
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    # paths:
+    #   - 'src/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install devcontainer CLI
+        run: npm install -g @devcontainers/cli
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish features
+        run: |
+          set +e
+          output=$(devcontainer features publish \
+            src/opencode \
+            --namespace ${{ github.repository_owner }}/features \
+            --registry ghcr.io 2>&1)
+          exit_code=$?
+          echo "$output"
+
+          if echo "$output" | grep -q "already exists, skipping"; then
+            echo "::error::Version already exists! Please bump the version in devcontainer-feature.json"
+            exit 1
+          fi
+
+          exit $exit_code
+
+      - name: Create release summary
+        run: |
+          echo "## Published Features" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- opencode" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Published to: 
+---
+ghcr.io/${{ github.repository_owner }}/features/opencode" >> $GITHUB_STEP_SUMMARY
