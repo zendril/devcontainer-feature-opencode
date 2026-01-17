@@ -1,6 +1,6 @@
 {
   "id": "opencode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "OpenCode",
   "documentationURL": "https://opencode.ai/docs/",
   "description": "Installs OpenCode (opencode.ai) with persistent configuration",
