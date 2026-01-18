@@ -30,7 +30,7 @@ su - "$USERNAME" -c "curl -fsSL https://opencode.ai/install | bash -s -- ${VERSI
 mkdir -p "$USER_HOME/.local/share/opencode"
 mkdir -p "$USER_HOME/.config/opencode"
 mkdir -p "$USER_HOME/.cache/opencode"
-mkdir -p "$USER_HOME/.local/state"
+mkdir -p "$USER_HOME/.local/state/opencode"
 
 chown -R "$USERNAME:$USERNAME" "$USER_HOME/.local/share/opencode"
 chown -R "$USERNAME:$USERNAME" "$USER_HOME/.config/opencode"

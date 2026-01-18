@@ -1,6 +1,6 @@
 {
   "id": "opencode",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "name": "OpenCode",
   "documentationURL": "https://opencode.ai/docs/",
   "description": "Installs OpenCode (opencode.ai) with persistent configuration",
@@ -28,6 +28,11 @@
     {
       "source": "opencode-cache",
       "target": "/home/vscode/.cache/opencode",
+      "type": "volume"
+    },
+    {
+      "source": "opencode-state",
+      "target": "/home/vscode/.local/state/opencode",
       "type": "volume"
     }
   ],
