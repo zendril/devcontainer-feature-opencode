@@ -1,0 +1,27 @@
+{
+  "id": "codex",
+  "version": "1.0.0",
+  "name": "OpenAI Codex",
+  "documentationURL": "https://developers.openai.com/codex/cli/",
+  "description": "Installs OpenAI Codex with persistent authentication, configuration, and session history",
+  "options": {
+    "version": {
+      "default": "latest",
+      "description": "Select the Codex CLI version to install.",
+      "proposals": [
+        "latest"
+      ],
+      "type": "string"
+    }
+  },
+  "mounts": [
+    {
+      "source": "codex-data",
+      "target": "/var/lib/codex",
+      "type": "volume"
+    }
+  ],
+  "containerEnv": {
+    "CODEX_HOME": "/var/lib/codex"
+  }
+}
